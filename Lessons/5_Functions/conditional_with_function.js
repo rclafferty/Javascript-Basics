@@ -1,3 +1,8 @@
+/*
+    My recreation of my work for conditional_statements.js with the use of functions.
+    This was my idea, not part of the lessons.
+*/
+
 // Make a quiz program that asks the user 3 simple math
 //      problems and score the user on their answers
 
@@ -41,10 +46,85 @@ function question(numQuestion)
     return answer === userAnswer;
 }
 
-var score = 0;
+function getAnswerToQuestion(numQuestion)
+{
+    if (numQuestion === 1)
+    {
+        return 30;
+    }
+    else if (numQuestion === 2)
+    {
+        return 0;
+    }
+    else if (numQuestion === 3)
+    {
+        return 9;
+    }
+    else
+    {
+        // invalid
+    }
+}
 
-for (var i = 0; i < 3; i++)
+function pointsText(score)
+{
+    var text = "";
+
+    // point (singular) vs points (plural)
+    if (score == 1)
+    {
+        text = "point";
+    }
+    else
+    {
+        text = "points";
+    }
+
+    return text;
+}
+
+function notify(message, score)
+{
+    alert(message);
+    alert("You currently have " + score + " " + pointsText(score));
+}
+
+/* ------------------------------------------ */
+/* ------------------ MAIN ------------------ */
+/* ------------------------------------------ */
+
+var score = 0;
+var userMessage = "";
+
+for (var i = 1; i <= 3; i++)
 {
     var isCorrect = question(i);
-    
+    if (isCorrect)
+    {
+        score++;
+        userMessage = "Correct!";
+    }
+    else
+    {
+        userMessage = "Sorry. The correct answer was " + getAnswerToQuestion(i);
+    }
+
+    notify(userMessage, score);
+}
+
+/* ----------------------------------------- */
+/* ---------------- RESULTS ---------------- */
+/* ----------------------------------------- */
+
+document.write("<h1>You scored " + score + " " + pointsText(score) + "!</h1>");
+
+if (score >= 2)
+{
+    // alert("You've passed the math quiz! Stay tuned for further quizzes!");
+    document.write("You've passed the math quiz! Stay tuned for further quizzes!");
+}
+else
+{
+    // alert("You didn't pass the quiz. Please try again!");
+    document.write("You didn't pass the quiz. You need a minimum of 2 points to pass the quiz. Please try again!");
 }
